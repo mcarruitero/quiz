@@ -16,9 +16,9 @@
 <body>
 <div id='page-wrap'>
 	<% if(!session.user){ %>
-		<span class="right"><a href='/login'>Login</a></span>
+		<span class="right"><a href='/login'>Login</a>&nbsp;</span>
 	<% }else{ %>
-		<span class="right"><%=session.user.username %> <a href='/logout'>Logout</a></span>
+		<span class="right"><%=session.user.username %> <a href='/logout'>Logout</a>&nbsp;</span>
 	<% } %>
 
 	<header class='main' id='h1'>
