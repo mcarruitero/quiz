@@ -23,12 +23,25 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 //app.use(cookieParser());
 app.use(cookieParser('Quiz 2015'));
-app.use(session());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function (req, res, next) {
+    var tiempo = 120000;
+    req.session.cookie.expires = new Date(Date.now() + tiempo);
+    //req.session.cookie.maxAge = tiempo;
+    next();
+});
+
 
 app.use(function(req, res, next) {
     if(!req.path.match(/\/login|\/logout/)) {
