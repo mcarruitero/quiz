@@ -36,11 +36,28 @@ app.use(session());
 */
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+/*
 app.use(function (req, res, next) {
     var tiempo = 120000;
     req.session.cookie.expires = new Date(Date.now() + tiempo);
     //req.session.cookie.maxAge = tiempo;
+    next();
+});
+*/
+app.use(function(req, res, next) {
+    if(req.session.user){// si estamos en una sesion
+        if(!req.session.marcatiempo){//primera vez se pone la marca de tiempo
+            req.session.marcatiempo=(new Date()).getTime();
+        }else{
+            if((new Date()).getTime()-req.session.marcatiempo > 120000){//se pasó el tiempo y eliminamos la sesión (2min=120000ms)
+                delete req.session.user;  
+                req.session.marcatiempo=null;
+                   //eliminamos el usuario
+            }else{//hay actividad se pone nueva marca de tiempo
+                req.session.marcatiempo=(new Date()).getTime();
+            }
+        }
+    }
     next();
 });
 
