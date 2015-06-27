@@ -36,6 +36,7 @@ app.use(session());
 */
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
 /*
 app.use(function (req, res, next) {
     var tiempo = 120000;
@@ -44,6 +45,7 @@ app.use(function (req, res, next) {
     next();
 });
 */
+
 app.use(function(req, res, next) {
     if(req.session.user){// si estamos en una sesion
         if(!req.session.marcatiempo){//primera vez se pone la marca de tiempo

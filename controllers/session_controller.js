@@ -34,6 +34,8 @@ exports.create = function(req, res) {
 
 exports.destroy = function(req, res) {
 	delete req.session.user;
+
 	req.session.marcatiempo=null;
+	
 	res.redirect(req.session.redir.toString());
 };
