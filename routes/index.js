@@ -5,6 +5,8 @@ var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 
+var statisticsController = require('../controllers/statistics_controller');
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz', errors: []});
@@ -33,6 +35,9 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 //deberia ser un put
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
+
+//router.get('/quizes/statistics', statisticsController.calculate, statisticsController.show);
+router.get('/quizes/statistics', statisticsController.calculateStatistcs, statisticsController.statistics);
 
 //router.get('/quizes/question', quizController.question);
 //router.get('/quizes/answer', quizController.answer);
